@@ -36,7 +36,7 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical">
 
-            <com.savitrisekar.tunein.presentation.view.MusicPlaylistView
+            <com.savitrisekar.tuneinapp.presentation.view.MusicPlaylistView
                 android:id="@+id/component_music_playlist_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
