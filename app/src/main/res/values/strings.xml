@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Tune in App</string>
+    <string name="search_songs">Search songs</string>
+    <string name="music_playlist_recommended_title">Recommended playlist</string>
+    <string name="music_playlist_title_song">Malibu night</string>
+    <string name="item_music_artist">LANY</string>
+    <string name="error_something_tap_to_retry">There is something wrong. Tap to retry</string>
+    <string name="toolbar_soul_music">Soul Music</string>
+</resources>
