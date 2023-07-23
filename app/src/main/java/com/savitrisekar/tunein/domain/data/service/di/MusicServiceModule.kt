@@ -1,7 +1,7 @@
 package com.savitrisekar.tunein.domain.data.service.di
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.savitrisekar.tunein.BuildConfig
+import com.savitrisekar.testapp.BuildConfig
 import com.savitrisekar.tunein.domain.data.service.MusicApiService
 import dagger.Module
 import dagger.Provides

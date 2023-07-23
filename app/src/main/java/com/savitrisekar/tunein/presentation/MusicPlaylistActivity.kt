@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import com.savitrisekar.testapp.databinding.ActivityMusicPlaylistBinding
 import com.savitrisekar.tunein.MyApplication
-import com.savitrisekar.tunein.databinding.ActivityMusicPlaylistBinding
 import com.savitrisekar.tunein.domain.base.BaseActivity
 import com.savitrisekar.tunein.domain.model.MusicPlaylist
 import com.savitrisekar.tunein.presentation.view.MusicPlaylistViewData

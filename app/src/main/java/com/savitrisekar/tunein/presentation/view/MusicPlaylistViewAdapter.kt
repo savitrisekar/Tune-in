@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.savitrisekar.tunein.R
-import com.savitrisekar.tunein.databinding.ItemMusicPlaylistBinding
+import com.savitrisekar.testapp.R
+import com.savitrisekar.testapp.databinding.ItemMusicPlaylistBinding
 
 class MusicPlaylistViewAdapter(private val onItemPlaylistClick: (MusicPlaylistViewData) -> Unit) :
     RecyclerView.Adapter<MusicPlaylistViewAdapter.ViewHolder>() {
