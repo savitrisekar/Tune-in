@@ -5,6 +5,7 @@ data class MusicPlaylistViewData(
     val picture: String = "",
     val title: String = "",
     val artist: String = "",
+    val song: String = "",
     val isPlay: Boolean = false,
     val playSetUp: PlaySetUp = PlaySetUp.HIDE
 ) {

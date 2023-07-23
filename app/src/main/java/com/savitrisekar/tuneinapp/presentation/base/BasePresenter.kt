@@ -1,4 +1,4 @@
-package com.savitrisekar.tuneinapp.domain.base
+package com.savitrisekar.tuneinapp.presentation.base
 
 interface BasePresenter<View> {
     var view: View?

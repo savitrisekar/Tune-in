@@ -1,6 +1,6 @@
 package com.savitrisekar.tuneinapp.presentation
 
-import com.savitrisekar.tuneinapp.domain.base.BasePresenter
+import com.savitrisekar.tuneinapp.presentation.base.BasePresenter
 import com.savitrisekar.tuneinapp.domain.model.MusicPlaylist
 
 interface MusicPlaylistContract {

@@ -1,4 +1,4 @@
-package com.savitrisekar.tuneinapp.domain.base
+package com.savitrisekar.tuneinapp.presentation.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

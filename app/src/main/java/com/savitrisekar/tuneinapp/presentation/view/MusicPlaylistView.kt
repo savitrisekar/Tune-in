@@ -59,7 +59,7 @@ class MusicPlaylistView : FrameLayout, MusicPlaylistViewContract.View {
             _adapter = MusicPlaylistViewAdapter {
                 onItemMusicClick.invoke(it)
             }.also {
-                componentMusicPlaylistRv.adapter = _adapter
+                componentMusicPlaylistRv.adapter = it
             }
         }
     }
@@ -77,6 +77,10 @@ class MusicPlaylistView : FrameLayout, MusicPlaylistViewContract.View {
                 componentMusicPlaylistError.visibility = View.VISIBLE
             }
         }
+    }
+
+    fun clearItems() {
+        _adapter?.clearItems()
     }
 
     override fun onShowLoading() {
