@@ -5,6 +5,7 @@ import com.savitrisekar.tuneinapp.domain.data.model.response.MusicPlaylistRespon
 import com.savitrisekar.tuneinapp.domain.data.service.MusicApiService
 
 class MusicRemoteDataSourceImpl(private val apiService: MusicApiService) : MusicRemoteDataSource {
+
     override suspend fun fetchPlaylist(
         term: String,
         entity: String
@@ -12,7 +13,6 @@ class MusicRemoteDataSourceImpl(private val apiService: MusicApiService) : Music
         return try {
             val result = apiService.fetchPlaylist(term = term, entity = entity)
             when {
-
                 result.results.isNullOrEmpty() -> {
                     DataResource.Empty
                 }

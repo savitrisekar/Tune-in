@@ -9,7 +9,6 @@ import androidx.annotation.AttrRes
 import androidx.core.view.isGone
 import com.savitrisekar.tuneinapp.R
 import com.savitrisekar.tuneinapp.databinding.ComponentMusicPlaylistBinding
-import timber.log.Timber
 
 class MusicPlaylistView : FrameLayout, MusicPlaylistViewContract.View {
 
@@ -31,19 +30,7 @@ class MusicPlaylistView : FrameLayout, MusicPlaylistViewContract.View {
     private var _adapter: MusicPlaylistViewAdapter? = null
     private var _playlistData: List<MusicPlaylistViewData>? = null
 
-    override var isLoading: Boolean = false
-        set(value) {
-            field = value
-            onShowLoading()
-        }
-
     override var onItemMusicClick: (MusicPlaylistViewData) -> Unit = {}
-
-    override var errorMessage: String? = null
-        set(value) {
-            field = value
-            showErrorMessage()
-        }
 
     override var onErrorClicked: (() -> Unit)? = null
 
@@ -51,7 +38,6 @@ class MusicPlaylistView : FrameLayout, MusicPlaylistViewContract.View {
         _binding = ComponentMusicPlaylistBinding.inflate(LayoutInflater.from(context), this, true)
 
         initAdapter()
-        initErrorMessage()
     }
 
     override fun initAdapter() {
@@ -83,7 +69,7 @@ class MusicPlaylistView : FrameLayout, MusicPlaylistViewContract.View {
         _adapter?.clearItems()
     }
 
-    override fun onShowLoading() {
+    override fun onShowLoading(isLoading: Boolean) {
         _binding?.apply {
             if (isLoading) {
                 if (isGone) {
@@ -98,28 +84,12 @@ class MusicPlaylistView : FrameLayout, MusicPlaylistViewContract.View {
         }
     }
 
-    override fun showErrorMessage() {
+    override fun showErrorMessage(message: String?) {
         _binding?.apply {
-            if (errorMessage.isNullOrEmpty()) {
-                componentMusicPlaylistError.visibility = View.GONE
-                return
-            }
+            componentMusicPlaylistRv.visibility = View.GONE
             componentMusicPlaylistError.visibility = View.VISIBLE
             componentMusicPlaylistError.text =
-                errorMessage ?: context.getString(R.string.error_something_tap_to_retry)
-        }
-    }
-
-    override fun initErrorMessage() {
-        _binding?.apply {
-            componentMusicPlaylistError.setOnClickListener {
-                if (onErrorClicked == null) {
-                    Timber.d("textError click not implemented yet")
-                    return@setOnClickListener
-                }
-                onErrorClicked?.invoke()
-                errorMessage = null
-            }
+                message ?: context.getString(R.string.error_something_tap_to_retry)
         }
     }
 }

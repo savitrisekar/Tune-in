@@ -5,18 +5,22 @@ import com.savitrisekar.tuneinapp.domain.data.source.remote.MusicRemoteDataSourc
 import com.savitrisekar.tuneinapp.domain.repository.MusicRepository
 import com.savitrisekar.tuneinapp.domain.usecase.GetPlaylistMusicUseCase
 import com.savitrisekar.tuneinapp.domain.usecase.GetPlaylistMusicUseCaseImpl
+import com.savitrisekar.tuneinapp.domain.usecase.GetSearchPlaylistMusicUseCase
+import com.savitrisekar.tuneinapp.domain.usecase.GetSearchPlaylistMusicUseCaseImpl
+import com.savitrisekar.tuneinapp.presentation.MusicPlaylistPresenter
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
-object MusicDomainModule {
+class MusicDomainModule {
+
     @Provides
     @Singleton
     fun provideMusicRepository(
         remote: MusicRemoteDataSource,
-        ioDispatcher: CoroutineDispatcher
+        @IoDispatcher ioDispatcher: CoroutineDispatcher
     ): MusicRepository {
         return MusicRepositoryImpl(
             remote = remote,
@@ -27,8 +31,28 @@ object MusicDomainModule {
     @Provides
     @Singleton
     fun provideGetPlaylistMusicUseCase(
+        @IoDispatcher ioDispatcher: CoroutineDispatcher,
         repository: MusicRepository
     ): GetPlaylistMusicUseCase {
-        return GetPlaylistMusicUseCaseImpl(repository = repository)
+        return GetPlaylistMusicUseCaseImpl(dispatcher = ioDispatcher, repository = repository)
     }
+
+    @Provides
+    @Singleton
+    fun provideGetSearchPlaylistMusicUseCase(
+        @IoDispatcher ioDispatcher: CoroutineDispatcher,
+        repository: MusicRepository
+    ): GetSearchPlaylistMusicUseCase {
+        return GetSearchPlaylistMusicUseCaseImpl(dispatcher = ioDispatcher, repository = repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMusicPlaylistPresenter(
+        useCase: GetPlaylistMusicUseCase,
+        getSearchPlaylistMusicUseCase: GetSearchPlaylistMusicUseCase
+    ): MusicPlaylistPresenter {
+        return MusicPlaylistPresenter(useCase, getSearchPlaylistMusicUseCase)
+    }
+
 }

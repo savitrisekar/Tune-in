@@ -15,6 +15,8 @@ interface MusicPlaylistContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun getPlaylist(term: String)
+        fun getPlaylist()
+
+        fun getSearchPlaylist(term: String)
     }
 }

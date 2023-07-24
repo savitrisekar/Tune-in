@@ -5,8 +5,8 @@ data class MusicPlaylist(
     val artworkUrl100: String = "",
     val trackName: String = "",
     val artistName: String = "",
-    val isPlay: Boolean = false,
-    val playSetUp: PlaySetUp = PlaySetUp.HIDE,
+    val isPlayingNow: Boolean = false,
+    val playSetUp: PlaySetUp = PlaySetUp.PLAY,
     val previewUrl: String = ""
 ) {
     enum class PlaySetUp {

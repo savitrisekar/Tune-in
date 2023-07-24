@@ -6,7 +6,7 @@ data class MusicPlaylistViewData(
     val title: String = "",
     val artist: String = "",
     val song: String = "",
-    val isPlay: Boolean = false,
+    val isPlayingNow: Boolean = false,
     val playSetUp: PlaySetUp = PlaySetUp.HIDE
 ) {
     enum class PlaySetUp {

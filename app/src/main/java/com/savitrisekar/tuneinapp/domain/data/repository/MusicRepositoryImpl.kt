@@ -10,17 +10,19 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
-class MusicRepositoryImpl(
+class MusicRepositoryImpl @Inject constructor(
     private val remote: MusicRemoteDataSource,
     private val ioDispatcher: CoroutineDispatcher
 ) : MusicRepository {
+
     override fun fetchPlaylist(term: String): Flow<ResultData<List<MusicPlaylist>>> = flow {
-        val result = when (val response = remote.fetchPlaylist(term)) {
+        val result = when (val response = remote.fetchPlaylist(term = term)) {
             DataResource.Empty -> ResultData.Success(data = emptyList())
             is DataResource.Error -> response.exception?.let {
                 ResultData.Error(it)
-            }?: run {
+            } ?: run {
                 ResultData.Failure(response.message)
             }
 

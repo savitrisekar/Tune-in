@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import coil.load
-import com.savitrisekar.tuneinapp.MyApplication
 import com.savitrisekar.tuneinapp.R
 import com.savitrisekar.tuneinapp.databinding.ActivityMusicPlaylistBinding
+import com.savitrisekar.tuneinapp.domain.di.AppModule
+import com.savitrisekar.tuneinapp.domain.di.MusicDomainModule
+import com.savitrisekar.tuneinapp.domain.di.DaggerApplicationComponent
 import com.savitrisekar.tuneinapp.domain.model.MusicPlaylist
 import com.savitrisekar.tuneinapp.presentation.base.BaseActivity
 import com.savitrisekar.tuneinapp.presentation.view.MusicPlaylistViewData
@@ -21,7 +23,7 @@ class MusicPlaylistActivity :
     @Inject
     lateinit var presenter: MusicPlaylistPresenter
 
-    private var term: String = ""
+    private var query: String = ""
     private var isPlay: Boolean = false
     private var mediaPlayer: MediaPlayer? = null
 
@@ -30,7 +32,11 @@ class MusicPlaylistActivity :
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).appComponent.inject(this)
+        DaggerApplicationComponent.builder()
+            .appModule(AppModule(this.application))
+            .musicDomainModule(MusicDomainModule())
+            .build()
+            .inject(this)
         super.onCreate(savedInstanceState)
 
         initPresenter()
@@ -38,6 +44,7 @@ class MusicPlaylistActivity :
 
         initData()
         initMediaPlayer()
+        fetchSearch()
     }
 
     private fun initMediaPlayer() {
@@ -63,6 +70,10 @@ class MusicPlaylistActivity :
         fetchPlaylist()
     }
 
+    private fun fetchSearch() {
+        presenter.getSearchPlaylist(query)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         presenter.doDetachView()
@@ -70,7 +81,7 @@ class MusicPlaylistActivity :
     }
 
     private fun fetchPlaylist() {
-        presenter.getPlaylist(term)
+        presenter.getPlaylist()
     }
 
     override fun initView() {
@@ -82,24 +93,10 @@ class MusicPlaylistActivity :
         binding?.apply {
             componentMusicPlaylistView.onItemMusicClick = { item ->
                 musicPlaylistPlayNow.visibility = View.VISIBLE
-
                 onNowPlaying(item.song)
-
                 playNowImage.load(item.picture)
                 playNowSong.text = item.title
                 playNowArtist.text = item.artist
-
-                playNowBtnPlay.apply {
-                    when (item.playSetUp) {
-                        MusicPlaylistViewData.PlaySetUp.PLAY -> {
-                            setImageResource(R.drawable.ic_pause_24)
-                        }
-
-                        else -> {
-                            setImageResource(R.drawable.ic_play_24)
-                        }
-                    }
-                }
             }
 
             playNowBtnPlay.setOnClickListener {
@@ -113,7 +110,7 @@ class MusicPlaylistActivity :
             }
 
             componentMusicPlaylistView.onErrorClicked = {
-                presenter.getPlaylist(term)
+                presenter.getPlaylist()
             }
         }
     }
@@ -144,8 +141,8 @@ class MusicPlaylistActivity :
                 componentSearchInput.setOnEditorActionListener { v, actionId, event ->
                     when (actionId) {
                         EditorInfo.IME_ACTION_SEARCH -> {
-                            term = v?.text?.toString().orEmpty().trim()
-                            initData()
+                            query = v?.text?.toString().orEmpty().trim()
+                            fetchSearch()
                             return@setOnEditorActionListener true
                         }
                     }
@@ -161,7 +158,7 @@ class MusicPlaylistActivity :
 
     override fun onLoadingFetchPlaylist(isLoading: Boolean) {
         binding?.apply {
-            componentMusicPlaylistView.onShowLoading()
+            componentMusicPlaylistView.onShowLoading(isLoading)
         }
     }
 
@@ -173,7 +170,7 @@ class MusicPlaylistActivity :
 
     override fun onErrorFetchPlaylist(errorMessage: String?) {
         binding?.apply {
-            componentMusicPlaylistView.showErrorMessage()
+            componentMusicPlaylistView.showErrorMessage(errorMessage)
         }
     }
 

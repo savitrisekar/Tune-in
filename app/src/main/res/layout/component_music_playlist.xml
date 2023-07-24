@@ -3,20 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:background="@color/grey_161619">
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/component_music_playlist_text_title"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@font/roboto_bold"
+        android:text="@string/music_playlist_recommended_title"
+        android:fontFamily="@font/roboto_bold"
         android:textColor="@color/white"
-        android:layout_weight="1"
+        android:textSize="@dimen/_12sdp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/music_playlist_recommended_title"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textSize="@dimen/_12sdp"/>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/component_music_playlist_rv"
@@ -24,9 +23,9 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/_14sdp"
-        app:layout_constraintTop_toBottomOf="@id/component_music_playlist_text_title"
+        android:layout_marginTop="@dimen/_10sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/component_music_playlist_text_title"
         tools:itemCount="2"
         tools:listitem="@layout/item_music_playlist"/>
 
@@ -42,6 +41,7 @@
         android:paddingVertical="@dimen/_32sdp"
         android:textAlignment="center"
         android:textSize="@dimen/_12sdp"
+        android:textColor="@color/white"
         android:textAppearance="@font/roboto_regular"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="@id/component_music_playlist_rv"

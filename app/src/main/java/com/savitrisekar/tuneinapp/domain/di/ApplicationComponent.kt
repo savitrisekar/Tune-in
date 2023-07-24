@@ -7,7 +7,12 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [MusicDomainModule::class, MusicDataModule::class, MusicServiceModule::class])
+@Component(modules = [
+    AppModule::class,
+    DispatcherModule::class,
+    MusicDomainModule::class,
+    MusicDataModule::class,
+    MusicServiceModule::class])
 interface ApplicationComponent {
     fun inject(musicPlaylistActivity: MusicPlaylistActivity)
 }

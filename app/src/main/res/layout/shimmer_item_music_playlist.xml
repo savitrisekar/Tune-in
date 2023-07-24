@@ -10,7 +10,7 @@
         android:id="@+id/shimmer_item_image"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
-        android:src="@color/grey_292c30"
+        android:src="@color/grey_404040"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

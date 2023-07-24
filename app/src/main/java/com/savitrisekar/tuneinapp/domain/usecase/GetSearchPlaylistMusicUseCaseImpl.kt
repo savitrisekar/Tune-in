@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class GetPlaylistMusicUseCaseImpl @Inject constructor(
+class GetSearchPlaylistMusicUseCaseImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcher,
     private val repository: MusicRepository
-) : GetPlaylistMusicUseCase {
+) : GetSearchPlaylistMusicUseCase {
 
     override fun invoke(term: String): Flow<ResultData<List<MusicPlaylist>>> =
         flow {
